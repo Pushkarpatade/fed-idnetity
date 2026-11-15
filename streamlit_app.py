@@ -9,10 +9,15 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# Fullscreen seamless UI styling to make it look exactly like localhost
+# Responsive full-screen styling for mobile and desktop
 st.markdown("""
 <style>
-    /* Remove all Streamlit default paddings */
+    /* Reset margins and paddings for seamless full-width */
+    html, body, [data-testid="stAppViewContainer"] {
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow-x: hidden !important;
+    }
     .block-container {
         padding-top: 0rem !important;
         padding-bottom: 0rem !important;
@@ -21,15 +26,15 @@ st.markdown("""
         max-width: 100% !important;
     }
     header[data-testid="stHeader"] {
-        background-color: transparent !important;
-        z-index: 100 !important;
+        display: none !important;
     }
     #MainMenu, footer {
         visibility: hidden !important;
     }
     iframe {
         border: none !important;
-        width: 100vw !important;
+        width: 100% !important;
+        max-width: 100% !important;
         min-height: 100vh !important;
         height: 100vh !important;
         display: block !important;
@@ -46,6 +51,6 @@ if os.path.exists(standalone_path):
     with open(standalone_path, "r", encoding="utf-8") as f:
         app_html = f.read()
     # Render standalone FedID portal full screen
-    components.html(app_html, height=960, scrolling=True)
+    components.html(app_html, height=1000, scrolling=True)
 else:
     st.error("Deployment Error: standalone.html not found in repository root. Please ensure standalone.html is committed.")
